@@ -1,0 +1,19 @@
+{
+  "name": "@silrod/pi-web-panels",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./client/panels": "./client/panels/index.tsx",
+    "./client/background-agents": "./client/BackgroundAgentsPanel.tsx",
+    "./client/run-detail": "./client/AgentRunDetailView.tsx",
+    "./client/panel-tab-order": "./client/panel-tab-order.ts",
+    "./server/panel-sources/*": "./server/panel-sources/*.ts",
+    "./server/background-agents": "./server/background-agents.ts",
+    "./server/run-detail": "./server/agent-run-detail.ts"
+  },
+  "peerDependencies": {
+    "next": "^16.4.4",
+    "react": "^19.2.0"
+  }
+}

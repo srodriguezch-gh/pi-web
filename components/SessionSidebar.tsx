@@ -95,6 +95,7 @@ import { SessionSearch } from "./SessionSearch";
 import { SessionTree, sessionRowTitle, type SessionTreeReveal } from "./SessionTree";
 import { SidebarMenu, type SidebarMenuAnchor, type SidebarMenuItem } from "./SidebarMenu";
 import { SidebarToast, type SidebarToastAction, type SidebarToastData } from "./SidebarToast";
+import { BackgroundAgentsPanel } from "@silrod/pi-web-panels/client/background-agents";
 import {
   ArchiveIcon,
   ChangesIcon,
@@ -3057,6 +3058,9 @@ export function SessionSidebar({ selectedSessionId, onSelectSession, onNewSessio
           title={`${t("sidebar.resizeFiles")}: ${t("sidebar.resizeFilesHint")}`}
         />
       )}
+
+      {/* Local operations panel; stacked sidebar only, before the files section. */}
+      {stacked && <BackgroundAgentsPanel />}
 
       {/* Files: the project and worktree in use, and its files. A tab's
           panel, or the section below the sessions, under a header row of its

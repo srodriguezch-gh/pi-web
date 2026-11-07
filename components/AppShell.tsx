@@ -9,7 +9,8 @@ import { NewSessionContextBar, type NewSessionContextControl } from "./NewSessio
 import type { ChatScrollPosition } from "@/lib/chat-scroll-position";
 import { FileViewer } from "./FileViewer";
 import { TabBar, type Tab } from "./TabBar";
-import { movePanelTab, orderPanelTabs } from "@/lib/panel-tab-order";
+import { PanelsGroup } from "@silrod/pi-web-panels/client/panels";
+import { movePanelTab, orderPanelTabs } from "@silrod/pi-web-panels/client/panel-tab-order";
 import { openFileTab, saveFileViewerState, saveParkedFileViewerState, switchFileWorkspace, type ParkedFileWorkspace } from "./file-tab-state";
 import { SettingsPanel, SettingsSectionIcon } from "./SettingsPanel";
 import { ProjectTrustDialog, type ProjectTrustFailure } from "./ProjectTrustDialog";
@@ -2895,6 +2896,7 @@ export function AppShell() {
             )
           ) : null}
         </div>
+        {!activeCwd && <PanelsGroup />}
       </div>
 
       <div
