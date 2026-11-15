@@ -11,6 +11,8 @@ import { useI18n } from "@/hooks/useI18n";
  * VERSION_SHOWN_MS, or at once on a second click.
  */
 
+import { useRuntimeVersions } from "@/hooks/useRuntimeVersions";
+
 export const BRAND_TEXT = "Pi Web";
 /** How long the versions stay, counted from the click that showed them. */
 export const VERSION_SHOWN_MS = 3000;
@@ -87,8 +89,7 @@ export function PiWebTitle({ onWidthChange }: {
   const { t } = useI18n();
   const [versionShown, setVersionShown] = useState(false);
   const revertTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const appVersion = process.env.NEXT_PUBLIC_APP_VERSION;
-  const piVersion = process.env.NEXT_PUBLIC_PI_VERSION;
+  const { app: appVersion, pi: piVersion } = useRuntimeVersions();
   const text = useScramble(versionShown ? brandVersionText(appVersion, piVersion) : BRAND_TEXT);
 
   useLayoutEffect(() => {

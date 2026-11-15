@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
 import type { AppUpdateResponse } from "@/lib/api-types";
 import { getPiWebReleaseUrl, isNewerStableVersion } from "@/lib/app-update";
+import { runtimeVersions } from "@/lib/runtime-versions";
 
 export const dynamic = "force-dynamic";
 
-const CURRENT_VERSION = process.env.NEXT_PUBLIC_APP_VERSION ?? "0.0.0";
 const NPM_LATEST_URL = "https://registry.npmjs.org/@agegr%2Fpi-web/latest";
 const CACHE_TTL_MS = 12 * 60 * 60 * 1000;
 const FETCH_TIMEOUT_MS = 5_000;
@@ -38,9 +38,9 @@ async function fetchLatestVersion(): Promise<AppUpdateResponse> {
   if (!releaseUrl) throw new Error("npm registry returned an invalid version");
 
   return {
-    currentVersion: CURRENT_VERSION,
+    currentVersion: runtimeVersions().app,
     latestVersion,
-    updateAvailable: isNewerStableVersion(latestVersion, CURRENT_VERSION),
+    updateAvailable: isNewerStableVersion(latestVersion, runtimeVersions().app),
     releaseUrl,
   };
 }
@@ -69,8 +69,8 @@ async function loadUpdateStatus(): Promise<AppUpdateResponse> {
 export async function GET() {
   if (SKIP_VERSION_CHECK) {
     return NextResponse.json({
-      currentVersion: CURRENT_VERSION,
-      latestVersion: CURRENT_VERSION,
+      currentVersion: runtimeVersions().app,
+      latestVersion: runtimeVersions().app,
       updateAvailable: false,
       releaseUrl: "",
     } satisfies AppUpdateResponse);

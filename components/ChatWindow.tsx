@@ -111,6 +111,8 @@ const CHAT_COLUMN_PADDING = 16;
 let appUpdateCheck: Promise<AppUpdateResponse | null> | null = null;
 let appUpdateFound: AppUpdateResponse | null = null;
 
+import { RuntimeVersion } from "@/components/RuntimeVersion";
+
 function checkAppUpdate(): Promise<AppUpdateResponse | null> {
   appUpdateCheck ??= fetch("/api/app-update")
     .then(async (response) => {
@@ -1534,10 +1536,10 @@ export function ChatWindow({ session, searchTarget, onSearchTargetHandled, initi
                 <div className="new-session-brand-text">
                   <span className="new-session-brand-name">Pi Web</span>
                   <span className="new-session-meta">
-                    <span>web v{process.env.NEXT_PUBLIC_APP_VERSION ?? "0.0.0"}</span>
+                    <span>web v<RuntimeVersion of="app" /></span>
                     <NewSessionUpdateLink label={(version) => t("appUpdate.releaseNotes", { version })} />
                     <span aria-hidden="true">·</span>
-                    <span className="new-session-meta-pi">pi v{process.env.NEXT_PUBLIC_PI_VERSION ?? "0.0.0"}</span>
+                    <span className="new-session-meta-pi">pi v<RuntimeVersion of="pi" /></span>
                   </span>
                 </div>
               </div>
